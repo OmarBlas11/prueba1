@@ -9,6 +9,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -19,15 +21,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.blas.SpringBootAplication.Dto.ChangePasswordForm;
 import com.blas.SpringBootAplication.Entity.Role;
 import com.blas.SpringBootAplication.Entity.User;
 import com.blas.SpringBootAplication.Exeptions.CustomeFieldValidationException;
 import com.blas.SpringBootAplication.Exeptions.UserNameOridNotFound;
+import com.blas.SpringBootAplication.Repository.RepositoryUser;
 import com.blas.SpringBootAplication.Repository.RoleRepository;
 import com.blas.SpringBootAplication.Repository.UserRepository;
 import com.blas.SpringBootAplication.Service.UserService;
+import com.blas.SpringBootAplication.Service.UserServiceImplement;
 
 @Controller
 public class UserController {
@@ -41,6 +46,11 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	RepositoryUser respositoryuser;
+	
+	@Autowired
+	UserServiceImplement userserviceimple;
 	@GetMapping({"/","/login"})
 	public String index() {
 		return "index";
@@ -86,7 +96,23 @@ public class UserController {
 		model.addAttribute("userForm", new User());
 		model.addAttribute("roles", roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("listTab", "active");
+		if (userserviceimple.isLoggedUserADMIN()) {
+			model.addAttribute("listTab", "active");
+		}else {
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			UserDetails userDetails = null;
+			if (principal instanceof UserDetails) {
+			  userDetails = (UserDetails) principal;
+			}
+			String userName = userDetails.getUsername();
+			
+			User user=respositoryuser.findByUsername(userName);
+			model.addAttribute("userForm", user);
+			model.addAttribute("formTab", "active");
+			model.addAttribute("editMode","true");
+			model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
+		}
+		
 		return "user-form/user-view";
 	}
 	

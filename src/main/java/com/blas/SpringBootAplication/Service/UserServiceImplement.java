@@ -127,21 +127,21 @@ public class UserServiceImplement implements UserService {
 		return loggedUser != null ?true :false;
 	}
 
-//	private boolean isLoggedUserADMIN() {
-//		// Obtener el usuario logeado
-//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//		UserDetails loggedUser = null;
-//		Object roles = null;
-//
-//		// Verificar que ese objeto traido de sesion es el usuario
-//		if (principal instanceof UserDetails) {
-//			loggedUser = (UserDetails) principal;
-//
-//			roles = loggedUser.getAuthorities().stream().filter(x -> "ROLE_ADMIN".equals(x.getAuthority())).findFirst()
-//					.orElse(null);
-//		}
-//		return roles != null ? true : false;
-//	}
+	public boolean isLoggedUserADMIN() {
+		// Obtener el usuario logeado
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		UserDetails loggedUser = null;
+		Object roles = null;
+
+		// Verificar que ese objeto traido de sesion es el usuario
+		if (principal instanceof UserDetails) {
+			loggedUser = (UserDetails) principal;
+
+			roles = loggedUser.getAuthorities().stream().filter(x -> "ROLE_ADMIN".equals(x.getAuthority())).findFirst()
+					.orElse(null);
+		}
+		return roles != null ? true : false;
+	}
 	
 }

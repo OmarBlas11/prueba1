@@ -11,4 +11,5 @@ import com.blas.SpringBootAplication.Entity.User;
 public interface UserRepository extends CrudRepository<User, Long>{
 	
 	public Optional<User> findByUsername(String username);
+	//public User findByUsername1(String username);
 }
