@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blas.SpringBootAplication.Dto.ChangePasswordForm;
@@ -35,6 +36,7 @@ import com.blas.SpringBootAplication.Service.UserService;
 import com.blas.SpringBootAplication.Service.UserServiceImplement;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
 	
 	@Autowired
@@ -51,6 +53,7 @@ public class UserController {
 	
 	@Autowired
 	UserServiceImplement userserviceimple;
+	
 	@GetMapping({"/","/login"})
 	public String index() {
 		return "index";
@@ -194,7 +197,7 @@ public class UserController {
 	}
 	@GetMapping("/userForm/cancel")
 	public String CancelEditUser(ModelMap model) {
-		return "redirect:/userForm";
+		return "redirect:/users/userForm";
 	}
 	
 	@GetMapping("deleteUser/{id}")

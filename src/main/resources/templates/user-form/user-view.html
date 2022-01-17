@@ -50,17 +50,7 @@
 </head>
 <body>
 	<div class="container">
-		<div >
-			<div th:object="${userForm}"></div>
-			<p th:field="${userForm.firstName}"></p>
-		</div>
 		<div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
-<!-- 			<div> -->
-<!-- 				<p>[[${#httpServletRequest.remoteUser}]]!</p> -->
-<!-- 			</div> -->
-<!-- 			<div sec:authorize="isAuthenticated()"> -->
-<!-- 				Authenticated as <span sec:authentication="name"></span> -->
-<!-- 			</div> -->
 			<ul class="nav nav-tabs justify-content-end">
 				<li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a class="nav-link"
 					th:classappend="${listTab}" id="list-tab" data-toggle="tab"
@@ -68,7 +58,7 @@
 				</li>
 				<li class="nav-item"><a class="nav-link"
 					th:classappend="${formTab}" id="form-tab" data-toggle="tab"
-					href="#form" role="tab" aria-controls="form" aria-selected="true">Form</a>
+					href="#form" role="tab" aria-controls="form" aria-selected="true">Agregar Nuevo Usuario</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="#"
 					th:href="@{/logout}"><span
@@ -100,6 +90,18 @@
 						</div>
 						<div class="card-body">
 							<div th:include="user-form/user-form.html" th:remove="tag">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade show" th:classappend=" ${corteTab}"
+					id="form" role="tabpanel" aria-labelledby="corte-tab">
+					<div class="card">
+						<div class="card-header">
+							<h4>Roster</h4>
+						</div>
+						<div class="card-body">
+							<div th:include="corte-form/corte-form.html" th:remove="tag">
 							</div>
 						</div>
 					</div>

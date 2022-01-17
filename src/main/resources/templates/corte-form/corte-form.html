@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Registrar Nuevo Corte</title>
+<link rel="stylesheet" type="text/css" href="static/css/corte-form.css"
+	th:href="@{/css/corte-form.css}">
+<body>
+	<form>
+		<h2>Registrar Corte</h2>
+		<input type="text" name="Nombre" placeholder="Nombre">
+		<input type="text" name="Correo" placeholder="Nombre">
+		<input type="text" name="telefono" placeholder="Nombre">
+		<textarea name="mensaje" placeholder="Escriba aqui su mensaje"></textarea>
+		<input type="button" value="ENVIAR" id="boton">
+	</form>
+</body>

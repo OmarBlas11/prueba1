@@ -40,9 +40,9 @@ public class Corte {
 	
 	@Size(min=1)
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name="UsersCorte"
+	@JoinTable(name="users_corte"
 		,joinColumns=@JoinColumn(name="user_id")
-		,inverseJoinColumns=@JoinColumn(name="CORTE_id"))
+		,inverseJoinColumns=@JoinColumn(name="corte_id"))
 	private Set<User> users;
 	
 	public Corte() {

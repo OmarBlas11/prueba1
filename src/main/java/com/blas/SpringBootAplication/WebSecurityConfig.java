@@ -26,21 +26,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     	http
         .authorizeRequests()
         .antMatchers(resources).permitAll()  
-        .antMatchers("/","/index","/signup").permitAll()
+        .antMatchers("/","/users/index","/users/signup").permitAll()
+        .antMatchers("/corte/*", "/users*").access("hasRole('ADMIN')")
             .anyRequest().authenticated()
             .and()
         .formLogin()
-            .loginPage("/login")
+            .loginPage("/users/login")
             .permitAll()
-            .defaultSuccessUrl("/userForm")
-            .failureUrl("/login?error=true")
+            .defaultSuccessUrl("/users/userForm")
+            .failureUrl("/users/login?error=true")
             .usernameParameter("username")
             .passwordParameter("password")
             .and()
             .csrf().disable()
         .logout()
             .permitAll()
-            .logoutSuccessUrl("/login?logout");
+            .logoutSuccessUrl("/users/login?logout");
     }
 	
 	BCryptPasswordEncoder bCryptPasswordEncoder;
